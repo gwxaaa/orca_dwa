@@ -1,0 +1,8 @@
+prefix=/home/gao/orca_dwa_ws/devel
+
+Name: orca_dwa
+Description: Description of orca_dwa
+Version: 0.0.0
+Cflags: -I/home/gao/orca_dwa_ws/devel/include -I/home/gao/orca_dwa_ws/src/orca_dwa/include
+Libs: -L${prefix}/lib -lorca_dwa
+Requires: gazebo_plugins gazebo_ros roscpp rospy std_msgs message_runtime

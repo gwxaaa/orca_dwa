@@ -1,0 +1,2 @@
+orca_dwa
+-DCMAKE_BUILD_TYPE=RelWithDebInfo -DCATKIN_DEVEL_PREFIX=/home/gao/orca_dwa_ws/devel -DCMAKE_INSTALL_PREFIX=/home/gao/orca_dwa_ws/install -G Unix Makefiles
