@@ -13,6 +13,7 @@ namespace RVO
   class neighbor;
   namespace
   {
+    //directionOpt代表是否进行方向优化。
     bool linearProgram1(const std::vector<Line> &lines, std::size_t lineNo,
                         float radius, const Vector2 &optVelocity, bool directionOpt,
                         Vector2 &result)

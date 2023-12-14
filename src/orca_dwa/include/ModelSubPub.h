@@ -9,6 +9,8 @@
 #include "Neighbor.h"
 #include <KinematicModel.h>
 #include "Line.h"
+#include "Vector2.h"
+
 namespace RVO
 {
 

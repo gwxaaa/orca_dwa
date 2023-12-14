@@ -63,6 +63,8 @@ KinematicModel.h
 -
 Line.h
 /home/gao/orca_dwa_ws/src/orca_dwa/include/Line.h
+Vector2.h
+/home/gao/orca_dwa_ws/src/orca_dwa/include/Vector2.h
 
 /home/gao/orca_dwa_ws/src/orca_dwa/include/Neighbor.h
 ModelSubPub.h
