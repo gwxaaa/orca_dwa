@@ -9,14 +9,16 @@
 namespace RVO
 {
 DWAPlanner::DWAPlanner(const geometry_msgs::Pose& target_pose, const std::vector<geometry_msgs::Pose>& obstacles,
-                       double max_linear_speed, double max_angular_speed, double time, double num,
+                       double max_linear_speed,double min_linear_speed,  double max_angular_speed,  double min_angular_speed, double time, double num,
                        const geometry_msgs::Pose& current_pose)
   : target_pose(target_pose)
   , obstacles(obstacles)
   , max_distance(1.0)
   , some_threshold(some_threshold)
   , max_linear_speed(max_linear_speed)
+  , min_linear_speed(min_linear_speed)
   , max_angular_speed(max_angular_speed)
+  , min_angular_speed(min_angular_speed)
   , time(time)
   , num(num)
 {
@@ -68,16 +70,16 @@ const geometry_msgs::Twist& DWAPlanner::FindBestTwist(const geometry_msgs::Pose&
 std::vector<geometry_msgs::Twist> DWAPlanner::GenerateTwists()
 {
   std::vector<geometry_msgs::Twist> twist_combinations;  // 存储多组速度角速度组合
-  double linear_speed_increment = (2 * max_linear_speed) / static_cast<double>(num - 1);
-  double angular_speed_increment = (2 * max_angular_speed) / static_cast<double>(num - 1);
+  double linear_speed_increment = (max_linear_speed-min_linear_speed) / static_cast<double>(num - 1);
+  double angular_speed_increment = (max_angular_speed-min_angular_speed) / static_cast<double>(num - 1);
   for (int i = 0; i < num; i++)
   {
     for (int j = 0; j < num; j++)
     {
       // 创建速度组合
       geometry_msgs::Twist current_twist;
-      current_twist.linear.x = -max_linear_speed + i * linear_speed_increment;
-      current_twist.angular.z = -max_angular_speed + j * angular_speed_increment;
+      current_twist.linear.x = min_linear_speed + i * linear_speed_increment;
+      current_twist.angular.z = min_angular_speed + j * angular_speed_increment;
       twist_combinations.push_back(current_twist);  // 存储当前组合
     }
   }

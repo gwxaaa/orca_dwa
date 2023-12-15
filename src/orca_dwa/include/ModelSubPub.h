@@ -23,9 +23,16 @@ namespace RVO
     // 回调函数，处理模型状态信息
     void modelStatesCallback(const gazebo_msgs::ModelStates::ConstPtr &msg);
     std::vector<gazebo_msgs::ModelState> getothermodels() const;
-    std::vector<Vector2> getVelocitiesWithinBounds(const std::vector<RVO::Line> &orca_lines, const Vector2 &currentPosition,
-                                                   double time, const Vector2 &minVelocity, const Vector2 &maxVelocity);
-    Vector2 getVelocityToReachPolygon(const std::vector<RVO::Line> &orca_lines, const Vector2 &currentPosition, double time);
+    std::vector<Vector2> convert_orca_lines_to_polygon(const std::vector<RVO::Line> &orca_lines);
+    std::pair<Vector2, Vector2> get_feasible_velocity_range(const Vector2 &currentPosition,
+                                                            const std::vector<Vector2> &polygonVertices,
+                                                            double maxSpeed,
+                                                            double time);
+    std::pair<std::pair<double, double>, std::pair<double, double>> convert_velocity_range_to_speed_and_angular_range(
+        const std::pair<Vector2, Vector2> &velocityRange, // 线速度范围
+        double theta                                      // 机器人朝向角度
+    );
+
     std::vector<Vector2> getReachableVelocitiesResult() const;
     double radius_; // 避障半径
   private:
@@ -63,8 +70,10 @@ namespace RVO
     std::vector<Vector2> newVelocities;
     double max_linear_speed;
     double max_angular_speed; // 用于存储新速度的数组
+    double min_linear_speed;
+    double min_angular_speed;
     std::vector<geometry_msgs::Pose> obstacle_poses;
-
+    std::vector<Vector2> &polygonVertices;
     std::vector<RVO::Line> orcaLines;
     Vector2 currentPosition;
     Vector2 minVelocity;
